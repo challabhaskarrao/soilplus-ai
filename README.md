@@ -45,15 +45,20 @@ Designed specifically for college project demonstrations, academic evaluations, 
 Run the Node.js backend server:
 
 ```bash
+npm start
+# or
 node server.js
 ```
 
-Or using custom path to Node:
-```powershell
-& "C:\Users\DELLPC654\AppData\Local\ms-playwright-go\1.57.0\node.exe" server.js
-```
+### 2. Environment Variables
 
-### 2. Access Application
+| Variable | Default | Description |
+| --- | --- | --- |
+| `PORT` | `5000` | Port number for the Express/HTTP server |
+| `NODE_ENV` | `development` | Environment mode (`development` or `production`) |
+| `FIREBASE_DATABASE_URL` | `""` | Firebase Realtime Database URL for telemetry sync |
+
+### 3. Access Application
 Open your browser to:
 [http://localhost:5000](http://localhost:5000)
 
@@ -69,3 +74,5 @@ Open your browser to:
 - `POST /api/config/crop`: Switch crop profile (`tomato`, `wheat`, `maize`, `strawberry`, `citrus`).
 - `POST /api/simulate-event`: Inject hardware simulation events (`RAIN_STORM`, `DROUGHT_HEATWAVE`, `LOW_BATTERY`, `CLEAR`).
 - `GET /api/events`: Server-Sent Events (SSE) live telemetry stream.
+- `GET /health`: Healthcheck status endpoint.
+
