@@ -116,7 +116,32 @@
   box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
 }
 
+.status-dot.warning {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+}
+
 .status-dot.offline {
   background: #ef4444;
   box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
 }
+
+/* Moisture Status Badge Utility Tokens */
+.badge-optimal {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-stress {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-wilting {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
