@@ -98,6 +98,20 @@ let state = {
   solarVoltage: 4.85,       // Volts (0.0 to 5.2V)
   batteryPercent: 94,       // %
   rssi: -64,                // dBm
+  wifiStatus: "CONNECTED"
+};
+
+/**
+ * Calculates Wi-Fi telemetry signal quality label from RSSI dBm rating.
+ */
+function getSignalQuality(rssi) {
+  if (rssi >= -55) return "EXCELLENT";
+  if (rssi >= -70) return "GOOD";
+  if (rssi >= -85) return "FAIR";
+  return "POOR";
+}
+
+Object.assign(state, {
   pumpState: false,         // false = OFF, true = ON
   pumpMode: 'AUTO',         // 'AUTO' or 'MANUAL'
   pumpRuntimeSec: 0,
