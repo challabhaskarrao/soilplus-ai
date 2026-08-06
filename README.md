@@ -73,6 +73,23 @@ Open your browser to:
 - `POST /api/pump/emergency-stop`: Immediately cut power to pump and pause automated rules.
 - `POST /api/config/crop`: Switch crop profile (`tomato`, `wheat`, `maize`, `strawberry`, `citrus`).
 - `POST /api/simulate-event`: Inject hardware simulation events (`RAIN_STORM`, `DROUGHT_HEATWAVE`, `LOW_BATTERY`, `CLEAR`).
-- `GET /api/events`: Server-Sent Events (SSE) live telemetry stream.
+- `GET /api/events`: Server-Sent Events (SSE) live telemetry stream (`text/event-stream`).
 - `GET /health`: Healthcheck status endpoint.
+
+### Sample Live Telemetry Response Schema (`GET /api/telemetry/live`)
+```json
+{
+  "soilMoisture": 58.4,
+  "soilTemp": 23.5,
+  "ambientTemp": 27.8,
+  "humidity": 62.1,
+  "soilPH": 6.5,
+  "solarVoltage": 4.85,
+  "rssi": -64,
+  "wifiStatus": "CONNECTED",
+  "pumpState": false,
+  "pumpMode": "AUTO"
+}
+```
+
 
