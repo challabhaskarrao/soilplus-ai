@@ -519,10 +519,19 @@ const server = http.createServer((req, res) => {
     
     res.write(`event: connected\ndata: ${JSON.stringify({ message: 'Connected to SoilPulse SSE Stream' })}\n\n`);
     
-    const clientObj = { id: Date.now(), res };
+    const pingInterval = setInterval(() => {
+      try {
+        res.write(`:ping\n\n`);
+      } catch (e) {
+        clearInterval(pingInterval);
+      }
+    }, 25000);
+
+    const clientObj = { id: Date.now(), res, pingInterval };
     sseClients.push(clientObj);
 
     req.on('close', () => {
+      clearInterval(pingInterval);
       const index = sseClients.indexOf(clientObj);
       if (index !== -1) sseClients.splice(index, 1);
     });
