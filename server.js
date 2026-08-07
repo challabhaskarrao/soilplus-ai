@@ -142,6 +142,16 @@ const telemetryHistory = [];
 const alertHistory = [];
 const esp32SerialLogs = [];
 
+/**
+ * Ensures historical buffer size is safely capped to prevent memory growth.
+ */
+function throttleHistoryBuffer(buffer, maxSize = 300) {
+  while (buffer.length > maxSize) {
+    buffer.shift();
+  }
+  return buffer;
+}
+
 // --- SSE Subscribers List ---
 const sseClients = [];
 
