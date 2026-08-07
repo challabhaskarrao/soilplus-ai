@@ -441,6 +441,8 @@ const server = http.createServer((req, res) => {
   if (method === 'POST' && pathname === '/api/pump/emergency-stop') {
     state.pumpState = false;
     state.pumpMode = 'MANUAL';
+    state.pumpRuntimeSec = 0;
+    state.emergencyStopActive = true;
     addAlert('CRITICAL', 'EMERGENCY STOP TRIGGERED', 'All irrigation pumps forcefully shut down. Automated logic paused.');
     logSerialPacket('RX', 'cmd/safety', JSON.stringify({ action: 'EMERGENCY_SHUTDOWN' }));
     broadcastSSE('telemetry', state);
