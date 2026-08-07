@@ -92,4 +92,15 @@ Open your browser to:
 }
 ```
 
+---
+
+## 📝 Release Notes & CHANGELOG (v1.2.0)
+
+- **Telemetry Signal Quality**: Added Wi-Fi RSSI evaluation utilities (`EXCELLENT`, `GOOD`, `FAIR`, `POOR`).
+- **SSE Stream Enhancements**: Implemented heartbeat ping interval to maintain active server-sent event socket connections.
+- **Crop Moisture Evaluator**: Added crop profile threshold evaluation (`OPTIMAL`, `MILD DEFICIT`, `CRITICAL WILTING`, `WATERLOGGED`).
+- **Pump Safety Guard**: Reinforced emergency stop override with automated runtime counter reset.
+- **UI Enhancements**: Added custom status dot indicators and moisture level badge styling tokens.
+
+
 
