@@ -111,6 +111,17 @@ function getSignalQuality(rssi) {
   return "POOR";
 }
 
+/**
+ * Evaluates soil moisture level against active crop profile thresholds.
+ */
+function evaluateMoistureHealth(moisture, crop) {
+  if (moisture < crop.wiltingPoint) return { status: 'CRITICAL', label: 'Wilting Stress Alert' };
+  if (moisture < crop.minMoisture) return { status: 'WARNING', label: 'Mild Moisture Deficit' };
+  if (moisture <= crop.maxMoisture) return { status: 'OPTIMAL', label: 'Optimal Moisture Range' };
+  if (moisture <= crop.fieldCapacity) return { status: 'HIGH', label: 'Field Capacity Reached' };
+  return { status: 'WATERLOGGED', label: 'Waterlogging Risk' };
+}
+
 Object.assign(state, {
   pumpState: false,         // false = OFF, true = ON
   pumpMode: 'AUTO',         // 'AUTO' or 'MANUAL'
