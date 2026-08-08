@@ -122,6 +122,17 @@ function evaluateMoistureHealth(moisture, crop) {
   return { status: 'WATERLOGGED', label: 'Waterlogging Risk' };
 }
 
+/**
+ * Evaluates ambient environmental conditions for heat stress or fungal risk.
+ */
+function evaluateEnvironmentalAlerts(ambientTemp, soilTemp, humidity) {
+  const alerts = [];
+  if (ambientTemp > 35) alerts.push({ level: 'WARNING', code: 'HEAT_STRESS', msg: 'Ambient heat wave stress detected' });
+  if (humidity > 85) alerts.push({ level: 'WARNING', code: 'HIGH_HUMIDITY', msg: 'High humidity; elevated fungal disease risk' });
+  if (soilTemp > 30) alerts.push({ level: 'INFO', code: 'SOIL_WARM', msg: 'Soil temperature above average range' });
+  return alerts;
+}
+
 Object.assign(state, {
   pumpState: false,         // false = OFF, true = ON
   pumpMode: 'AUTO',         // 'AUTO' or 'MANUAL'
