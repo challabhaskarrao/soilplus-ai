@@ -101,6 +101,7 @@ Open your browser to:
 - **Crop Moisture Evaluator**: Added crop profile threshold evaluation (`OPTIMAL`, `MILD DEFICIT`, `CRITICAL WILTING`, `WATERLOGGED`).
 - **Pump Safety Guard**: Reinforced emergency stop override with automated runtime counter reset.
 - **UI Enhancements**: Added custom status dot indicators and moisture level badge styling tokens.
+- **Environmental Diagnostics**: Added evaluation routines for ambient heat stress, soil temperature, and relative humidity fungal alerts.
 
 
 
