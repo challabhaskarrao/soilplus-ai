@@ -102,6 +102,7 @@ Open your browser to:
 - **Pump Safety Guard**: Reinforced emergency stop override with automated runtime counter reset.
 - **UI Enhancements**: Added custom status dot indicators and moisture level badge styling tokens.
 - **Environmental Diagnostics**: Added evaluation routines for ambient heat stress, soil temperature, and relative humidity fungal alerts.
+- **NPK Nutrient Analysis**: Integrated nitrogen, phosphorus, and potassium target balance rating helper functions.
 
 
 
