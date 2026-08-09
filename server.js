@@ -133,6 +133,17 @@ function evaluateEnvironmentalAlerts(ambientTemp, soilTemp, humidity) {
   return alerts;
 }
 
+/**
+ * Analyzes soil N-P-K nutrient balance against crop recommendation targets.
+ */
+function analyzeNPKBalance(n, p, k, targetNPK = { n: 120, p: 60, k: 180 }) {
+  return {
+    nitrogenStatus: n < targetNPK.n * 0.8 ? 'DEFICIENT' : n > targetNPK.n * 1.2 ? 'SURPLUS' : 'BALANCED',
+    phosphorusStatus: p < targetNPK.p * 0.8 ? 'DEFICIENT' : p > targetNPK.p * 1.2 ? 'SURPLUS' : 'BALANCED',
+    potassiumStatus: k < targetNPK.k * 0.8 ? 'DEFICIENT' : k > targetNPK.k * 1.2 ? 'SURPLUS' : 'BALANCED'
+  };
+}
+
 Object.assign(state, {
   pumpState: false,         // false = OFF, true = ON
   pumpMode: 'AUTO',         // 'AUTO' or 'MANUAL'
