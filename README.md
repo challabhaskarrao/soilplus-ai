@@ -74,6 +74,7 @@ Open your browser to:
 - `POST /api/config/crop`: Switch crop profile (`tomato`, `wheat`, `maize`, `strawberry`, `citrus`).
 - `POST /api/simulate-event`: Inject hardware simulation events (`RAIN_STORM`, `DROUGHT_HEATWAVE`, `LOW_BATTERY`, `CLEAR`).
 - `GET /api/events`: Server-Sent Events (SSE) live telemetry stream (`text/event-stream`).
+- `GET /api/diagnostics/salinity`: Calculates soil Electrical Conductivity (EC in dS/m) and salinity risk classification.
 - `GET /health`: Healthcheck status endpoint.
 
 ### Sample Live Telemetry Response Schema (`GET /api/telemetry/live`)
@@ -94,8 +95,9 @@ Open your browser to:
 
 ---
 
-## 📝 Release Notes & CHANGELOG (v1.2.0)
+## 📝 Release Notes & CHANGELOG (v1.2.1)
 
+- **Soil Salinity & EC Index**: Added Electrical Conductivity (dS/m) calculation helper and salinity risk classifier (`NON_SALINE`, `SLIGHTLY_SALINE`, `MODERATELY_SALINE`, `HIGHLY_SALINE`).
 - **Telemetry Signal Quality**: Added Wi-Fi RSSI evaluation utilities (`EXCELLENT`, `GOOD`, `FAIR`, `POOR`).
 - **SSE Stream Enhancements**: Implemented heartbeat ping interval to maintain active server-sent event socket connections.
 - **Crop Moisture Evaluator**: Added crop profile threshold evaluation (`OPTIMAL`, `MILD DEFICIT`, `CRITICAL WILTING`, `WATERLOGGED`).
@@ -103,6 +105,7 @@ Open your browser to:
 - **UI Enhancements**: Added custom status dot indicators and moisture level badge styling tokens.
 - **Environmental Diagnostics**: Added evaluation routines for ambient heat stress, soil temperature, and relative humidity fungal alerts.
 - **NPK Nutrient Analysis**: Integrated nitrogen, phosphorus, and potassium target balance rating helper functions.
+
 
 
 
