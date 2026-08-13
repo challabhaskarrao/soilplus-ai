@@ -157,7 +157,7 @@ Object.assign(state, {
   eventSecondsLeft: 0,
   esp32Online: true,
   lastUpdated: new Date().toISOString()
-};
+});
 
 // Historical Data Buffers (up to 300 telemetry points)
 const telemetryHistory = [];
@@ -216,6 +216,43 @@ function addAlert(type, title, message) {
   
   // Push alert to SSE subscribers
   broadcastSSE('alert', alertItem);
+}
+
+// Soil Salinity & Electrical Conductivity (EC) Index Evaluator
+function calculateSoilSalinityEC(n, p, k, moisture, temp) {
+  const totalIons = (n || 0) + (p || 0) * 0.8 + (k || 0) * 1.2;
+  const moistureFactor = Math.max(moisture, 10) / 100;
+  const tempCompensation = 1 + 0.02 * ((temp || 25) - 25);
+  
+  const ecValue = +((totalIons / 500) / moistureFactor * tempCompensation).toFixed(2);
+  
+  let category = 'NON_SALINE';
+  let riskLevel = 'LOW';
+  let advice = 'Soil EC is within ideal range for healthy root nutrient osmosis.';
+
+  if (ecValue > 4.0) {
+    category = 'HIGHLY_SALINE';
+    riskLevel = 'CRITICAL';
+    advice = 'Severe salt accumulation detected. Flush root zone with clean fresh irrigation water immediately to prevent osmotic shock.';
+  } else if (ecValue > 2.5) {
+    category = 'MODERATELY_SALINE';
+    riskLevel = 'MODERATE';
+    advice = 'Elevated electrical conductivity. Consider reducing fertilizer application and monitoring root tip health.';
+  } else if (ecValue > 1.2) {
+    category = 'SLIGHTLY_SALINE';
+    riskLevel = 'LOW_MODERATE';
+    advice = 'Optimal electrical conductivity for nutrient-rich crop growth.';
+  }
+
+  return {
+    ecValue,
+    unit: 'dS/m',
+    category,
+    riskLevel,
+    totalDissolvedIons: +totalIons.toFixed(1),
+    temperatureCompensationFactor: +tempCompensation.toFixed(3),
+    advice
+  };
 }
 
 // --- ESP32 Telemetry Simulation Engine ---
@@ -586,6 +623,18 @@ const server = http.createServer((req, res) => {
   // 10. GET /api/crops
   if (method === 'GET' && pathname === '/api/crops') {
     return sendJSON(200, { success: true, crops: CROP_PROFILES, activeKey: activeCropKey });
+  }
+
+  // 11. GET /api/diagnostics/salinity
+  if (method === 'GET' && pathname === '/api/diagnostics/salinity') {
+    const salinityData = calculateSoilSalinityEC(
+      state.nitrogen,
+      state.phosphorus,
+      state.potassium,
+      state.soilMoisture,
+      state.soilTemp
+    );
+    return sendJSON(200, { success: true, timestamp: new Date().toISOString(), salinity: salinityData });
   }
 
   // 11. POST /api/auth/login (Demo Authentication)
