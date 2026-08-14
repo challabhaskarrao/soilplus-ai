@@ -255,6 +255,26 @@ function calculateSoilSalinityEC(n, p, k, moisture, temp) {
   };
 }
 
+// Water Usage Analytics & Irrigation Efficiency Calculator
+function calculateWaterUsageAnalytics(totalLitres, pumpRuntimeSec, cropName) {
+  const runtimeMinutes = +(pumpRuntimeSec / 60).toFixed(2);
+  const averageFlowRateLpm = pumpRuntimeSec > 0 ? +(totalLitres / (pumpRuntimeSec / 60)).toFixed(2) : 0;
+  
+  const estimatedDailyLiters = +(totalLitres * 1.5).toFixed(1);
+  const waterConservationRating = totalLitres < 50 ? 'HIGH_EFFICIENCY' : (totalLitres < 100 ? 'MODERATE' : 'HEAVY_CONSUMPTION');
+  
+  return {
+    cumulativeVolumeLiters: +totalLitres.toFixed(2),
+    totalPumpRuntimeSec: pumpRuntimeSec,
+    pumpRuntimeMinutes: runtimeMinutes,
+    averageFlowRateLpm: averageFlowRateLpm,
+    estimatedDailyLiters: estimatedDailyLiters,
+    waterConservationRating: waterConservationRating,
+    targetCrop: cropName || 'General',
+    status: 'NORMAL'
+  };
+}
+
 // --- ESP32 Telemetry Simulation Engine ---
 let secondsTick = 0;
 setInterval(() => {
@@ -635,6 +655,16 @@ const server = http.createServer((req, res) => {
       state.soilTemp
     );
     return sendJSON(200, { success: true, timestamp: new Date().toISOString(), salinity: salinityData });
+  }
+
+  // 12. GET /api/diagnostics/water-usage
+  if (method === 'GET' && pathname === '/api/diagnostics/water-usage') {
+    const waterData = calculateWaterUsageAnalytics(
+      state.totalWaterLitres,
+      state.pumpRuntimeSec,
+      activeCrop.name
+    );
+    return sendJSON(200, { success: true, timestamp: new Date().toISOString(), waterUsage: waterData });
   }
 
   // 11. POST /api/auth/login (Demo Authentication)
