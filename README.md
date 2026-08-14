@@ -75,6 +75,7 @@ Open your browser to:
 - `POST /api/simulate-event`: Inject hardware simulation events (`RAIN_STORM`, `DROUGHT_HEATWAVE`, `LOW_BATTERY`, `CLEAR`).
 - `GET /api/events`: Server-Sent Events (SSE) live telemetry stream (`text/event-stream`).
 - `GET /api/diagnostics/salinity`: Calculates soil Electrical Conductivity (EC in dS/m) and salinity risk classification.
+- `GET /api/diagnostics/water-usage`: Returns cumulative irrigation volume, pump runtime, average flow rate, and daily estimated water consumption.
 - `GET /health`: Healthcheck status endpoint.
 
 ### Sample Live Telemetry Response Schema (`GET /api/telemetry/live`)
@@ -95,8 +96,9 @@ Open your browser to:
 
 ---
 
-## 📝 Release Notes & CHANGELOG (v1.2.1)
+## 📝 Release Notes & CHANGELOG (v1.3.0)
 
+- **Water Usage Analytics**: Integrated cumulative water volume tracking, pump runtime calculations, and flow rate efficiency rating (`HIGH_EFFICIENCY`, `MODERATE`, `HEAVY_CONSUMPTION`).
 - **Soil Salinity & EC Index**: Added Electrical Conductivity (dS/m) calculation helper and salinity risk classifier (`NON_SALINE`, `SLIGHTLY_SALINE`, `MODERATELY_SALINE`, `HIGHLY_SALINE`).
 - **Telemetry Signal Quality**: Added Wi-Fi RSSI evaluation utilities (`EXCELLENT`, `GOOD`, `FAIR`, `POOR`).
 - **SSE Stream Enhancements**: Implemented heartbeat ping interval to maintain active server-sent event socket connections.
