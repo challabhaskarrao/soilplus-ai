@@ -145,3 +145,6 @@
   border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
+
+/* Aug 17 Theme adjustment */
+.soil-card { border-radius: 8px; padding: 16px; }
