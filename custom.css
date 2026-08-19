@@ -148,3 +148,6 @@
 
 /* Aug 17 Theme adjustment */
 .soil-card { border-radius: 8px; padding: 16px; }
+
+.health-badge-optimal { background-color: #4CAF50; color: white; }
+.health-badge-warning { background-color: #FF9800; color: white; }
