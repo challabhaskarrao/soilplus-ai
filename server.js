@@ -759,3 +759,9 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`  - GET  /api/events (SSE Stream)`);
   console.log(`=======================================================`);
 });
+
+// Aug 20 API helper middleware
+const requestLogger = (req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    if (typeof next === 'function') next();
+};
