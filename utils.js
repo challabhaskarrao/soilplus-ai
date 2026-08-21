@@ -7,3 +7,7 @@ export function getSoilHealthScore(ph, moisture) {
     if (ph >= 6.0 && ph <= 7.5 && moisture >= 40) return 'Optimal';
     return 'Needs Attention';
 }
+
+export function validateSoilInput(data) {
+    return data && typeof data.ph === 'number' && data.ph >= 0 && data.ph <= 14;
+}
