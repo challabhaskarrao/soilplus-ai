@@ -111,3 +111,6 @@ Open your browser to:
 
 
 
+
+## Recent Updates
+- Input validation and health score calculation algorithms integrated.
