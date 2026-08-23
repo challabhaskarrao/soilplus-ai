@@ -11,3 +11,7 @@ export function getSoilHealthScore(ph, moisture) {
 export function validateSoilInput(data) {
     return data && typeof data.ph === 'number' && data.ph >= 0 && data.ph <= 14;
 }
+
+export function formatFertilizerRecommendation(crop, deficit) {
+    return `For ${crop}, recommended NPK adjustment: ${deficit.N}g N, ${deficit.P}g P, ${deficit.K}g K.`;
+}
