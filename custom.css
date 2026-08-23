@@ -151,3 +151,5 @@
 
 .health-badge-optimal { background-color: #4CAF50; color: white; }
 .health-badge-warning { background-color: #FF9800; color: white; }
+
+.error-fallback { padding: 20px; color: #d32f2f; background: #ffebee; border-radius: 4px; }
