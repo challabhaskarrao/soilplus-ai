@@ -153,3 +153,6 @@
 .health-badge-warning { background-color: #FF9800; color: white; }
 
 .error-fallback { padding: 20px; color: #d32f2f; background: #ffebee; border-radius: 4px; }
+
+/* Performance & smooth transition tweaks */
+* { transition: background-color 0.2s ease, border-color 0.2s ease; }
