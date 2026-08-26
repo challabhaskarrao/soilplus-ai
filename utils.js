@@ -15,3 +15,9 @@ export function validateSoilInput(data) {
 export function formatFertilizerRecommendation(crop, deficit) {
     return `For ${crop}, recommended NPK adjustment: ${deficit.N}g N, ${deficit.P}g P, ${deficit.K}g K.`;
 }
+
+export function getMoistureStatus(level) {
+    if (level < 20) return 'Dry';
+    if (level <= 60) return 'Moist';
+    return 'Wet';
+}
