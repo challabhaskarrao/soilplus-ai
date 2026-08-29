@@ -667,6 +667,19 @@ const server = http.createServer((req, res) => {
     return sendJSON(200, { success: true, timestamp: new Date().toISOString(), waterUsage: waterData });
   }
 
+  // 13. GET /api/diagnostics/frost-risk
+  if (method === 'GET' && pathname === '/api/diagnostics/frost-risk') {
+    const frostRisk = (state.ambientTemp <= 2.0 && state.humidity >= 80) ? 'CRITICAL' : (state.ambientTemp <= 5.0 ? 'MODERATE' : 'LOW');
+    return sendJSON(200, { success: true, timestamp: new Date().toISOString(), ambientTemp: state.ambientTemp, humidity: state.humidity, frostRisk });
+  }
+
+  // 14. GET /api/diagnostics/organic-matter
+  if (method === 'GET' && pathname === '/api/diagnostics/organic-matter') {
+    const somVal = state.soilOrganicMatter || 3.2;
+    const category = somVal >= 4.0 ? 'High' : (somVal >= 2.0 ? 'Moderate' : 'Low');
+    return sendJSON(200, { success: true, timestamp: new Date().toISOString(), soilOrganicMatter: somVal, category });
+  }
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';

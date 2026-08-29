@@ -76,6 +76,8 @@ Open your browser to:
 - `GET /api/events`: Server-Sent Events (SSE) live telemetry stream (`text/event-stream`).
 - `GET /api/diagnostics/salinity`: Calculates soil Electrical Conductivity (EC in dS/m) and salinity risk classification.
 - `GET /api/diagnostics/water-usage`: Returns cumulative irrigation volume, pump runtime, average flow rate, and daily estimated water consumption.
+- `GET /api/diagnostics/frost-risk`: Evaluates atmospheric freeze risk based on ambient temperature and relative humidity.
+- `GET /api/diagnostics/organic-matter`: Calculates soil organic matter (SOM) percentage index and soil quality rating.
 - `GET /health`: Healthcheck status endpoint.
 
 ### Sample Live Telemetry Response Schema (`GET /api/telemetry/live`)
