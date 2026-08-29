@@ -21,3 +21,16 @@ export function getMoistureStatus(level) {
     if (level <= 60) return 'Moist';
     return 'Wet';
 }
+
+export function calculateSoilOrganicMatterIndex(somPercentage) {
+    if (somPercentage >= 4.0) return { category: 'High', status: 'Optimal Organic Retention' };
+    if (somPercentage >= 2.0) return { category: 'Moderate', status: 'Adequate Soil Structure' };
+    return { category: 'Low', status: 'Requires Organic Amendment' };
+}
+
+export function evaluateFrostRisk(ambientTemp, humidity) {
+    if (ambientTemp <= 2.0 && humidity >= 80) return { riskLevel: 'CRITICAL', message: 'High probability of frost formation. Activate micro-sprinklers.' };
+    if (ambientTemp <= 5.0) return { riskLevel: 'MODERATE', message: 'Cold weather warning. Monitor nocturnal temperature drops.' };
+    return { riskLevel: 'LOW', message: 'No immediate frost risk.' };
+}
+
