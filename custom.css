@@ -145,6 +145,19 @@
   border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
+.badge-frost-critical {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  animation: pulse-glow 2s infinite;
+}
+
+.badge-organic-high {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
 
 /* Aug 17 Theme adjustment */
 .soil-card { border-radius: 8px; padding: 16px; }
