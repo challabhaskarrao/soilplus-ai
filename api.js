@@ -8,3 +8,23 @@ export async function fetchSoilData(sensorId) {
         return null;
     }
 }
+
+export async function fetchFrostRisk() {
+    try {
+        const res = await fetch('/api/diagnostics/frost-risk');
+        return await res.json();
+    } catch (err) {
+        console.error('Failed to fetch frost risk diagnostics:', err);
+        return null;
+    }
+}
+
+export async function fetchOrganicMatter() {
+    try {
+        const res = await fetch('/api/diagnostics/organic-matter');
+        return await res.json();
+    } catch (err) {
+        console.error('Failed to fetch organic matter diagnostics:', err);
+        return null;
+    }
+}
