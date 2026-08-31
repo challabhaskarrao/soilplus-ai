@@ -680,6 +680,15 @@ const server = http.createServer((req, res) => {
     return sendJSON(200, { success: true, timestamp: new Date().toISOString(), soilOrganicMatter: somVal, category });
   }
 
+  // 15. GET /api/diagnostics/aeration
+  if (method === 'GET' && pathname === '/api/diagnostics/aeration') {
+    const density = state.bulkDensity || 1.35;
+    const compactionIndex = state.compactionIndex || 45;
+    const porosity = density > 1.6 || compactionIndex > 80 ? 'Poor' : (density >= 1.3 ? 'Moderate' : 'High');
+    return sendJSON(200, { success: true, timestamp: new Date().toISOString(), bulkDensity: density, compactionIndex, porosity });
+  }
+
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';

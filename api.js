@@ -39,3 +39,14 @@ export async function fetchSalinityData() {
     }
 }
 
+export async function fetchAerationDiagnostics() {
+    try {
+        const res = await fetch('/api/diagnostics/aeration');
+        return await res.json();
+    } catch (err) {
+        console.error('Failed to fetch aeration diagnostics:', err);
+        return null;
+    }
+}
+
+
