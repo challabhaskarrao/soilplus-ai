@@ -28,3 +28,14 @@ export async function fetchOrganicMatter() {
         return null;
     }
 }
+
+export async function fetchSalinityData() {
+    try {
+        const res = await fetch('/api/diagnostics/salinity');
+        return await res.json();
+    } catch (err) {
+        console.error('Failed to fetch soil salinity diagnostics:', err);
+        return null;
+    }
+}
+
