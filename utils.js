@@ -34,3 +34,11 @@ export function evaluateFrostRisk(ambientTemp, humidity) {
     return { riskLevel: 'LOW', message: 'No immediate frost risk.' };
 }
 
+export function calculateSalinityIndex(ecValue) {
+    if (ecValue < 1.0) return { level: 'Non-saline', status: 'Optimal for sensitive crops', ec: ecValue };
+    if (ecValue <= 2.5) return { level: 'Slightly Saline', status: 'Yield of sensitive crops may be restricted', ec: ecValue };
+    if (ecValue <= 4.0) return { level: 'Moderately Saline', status: 'Yield of many crops restricted', ec: ecValue };
+    return { level: 'Severely Saline', status: 'Only tolerant crops produce acceptable yields', ec: ecValue };
+}
+
+
