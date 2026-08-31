@@ -41,4 +41,11 @@ export function calculateSalinityIndex(ecValue) {
     return { level: 'Severely Saline', status: 'Only tolerant crops produce acceptable yields', ec: ecValue };
 }
 
+export function evaluateSoilAeration(density, compactionIndex) {
+    if (density > 1.6 || compactionIndex > 80) return { porosity: 'Poor', aerationStatus: 'Compacted - Aeration Required', density };
+    if (density >= 1.3) return { porosity: 'Moderate', aerationStatus: 'Good Aeration', density };
+    return { porosity: 'High', aerationStatus: 'Well Aerated / Loose Soil', density };
+}
+
+
 
