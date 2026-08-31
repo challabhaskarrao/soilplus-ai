@@ -784,6 +784,14 @@ server.listen(PORT, '0.0.0.0', () => {
 
 // Aug 20 API helper middleware
 const requestLogger = (req, res, next) => {
+    const startTime = Date.now();
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    if (res && res.on) {
+        res.on('finish', () => {
+            const duration = Date.now() - startTime;
+            console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} -> ${res.statusCode} (${duration}ms)`);
+        });
+    }
     if (typeof next === 'function') next();
 };
+
