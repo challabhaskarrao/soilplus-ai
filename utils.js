@@ -47,5 +47,29 @@ export function evaluateSoilAeration(density, compactionIndex) {
     return { porosity: 'High', aerationStatus: 'Well Aerated / Loose Soil', density };
 }
 
+export function estimateIrrigationThreshold(cropType, soilType, currentMoisture) {
+    const baseThresholds = {
+        sandy: 35,
+        loam: 45,
+        clay: 55
+    };
+    const minThreshold = baseThresholds[soilType?.toLowerCase()] || 40;
+    const needsIrrigation = currentMoisture < minThreshold;
+    const deficit = Math.max(0, minThreshold - currentMoisture);
+
+    return {
+        crop: cropType || 'General',
+        soilType: soilType || 'Loam',
+        currentMoisture,
+        minThreshold,
+        needsIrrigation,
+        waterDeficitPercent: +deficit.toFixed(1),
+        recommendation: needsIrrigation 
+            ? `Irrigation required. Current moisture (${currentMoisture}%) is below minimum threshold (${minThreshold}%).`
+            : `Soil moisture level is adequate.`
+    };
+}
+
+
 
 
