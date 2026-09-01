@@ -688,6 +688,21 @@ const server = http.createServer((req, res) => {
     return sendJSON(200, { success: true, timestamp: new Date().toISOString(), bulkDensity: density, compactionIndex, porosity });
   }
 
+  // 16. GET /api/irrigation/threshold
+  if (method === 'GET' && pathname === '/api/irrigation/threshold') {
+    const minThreshold = state.minThreshold || activeCrop.minMoisture;
+    const needsIrrigation = state.soilMoisture < minThreshold;
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      crop: activeCrop.name,
+      currentMoisture: state.soilMoisture,
+      minThreshold,
+      needsIrrigation
+    });
+  }
+
+
 
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {

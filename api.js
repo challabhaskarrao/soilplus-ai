@@ -49,4 +49,15 @@ export async function fetchAerationDiagnostics() {
     }
 }
 
+export async function fetchIrrigationThreshold() {
+    try {
+        const res = await fetch('/api/irrigation/threshold');
+        return await res.json();
+    } catch (err) {
+        console.error('Failed to fetch irrigation threshold:', err);
+        return null;
+    }
+}
+
+
 
