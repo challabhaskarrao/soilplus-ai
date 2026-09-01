@@ -1,0 +1,21 @@
+{
+  "name": "soilplus-ai",
+  "version": "1.4.0",
+  "description": "Smart Soil Moisture & Autonomous Irrigation Backend Server and AI Agronomist Analytics",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests/salinity.test.js && node tests/irrigation.test.js"
+  },
+  "keywords": [
+    "soil-moisture",
+    "esp32",
+    "irrigation",
+    "smart-agriculture",
+    "agronomy",
+    "analytics"
+  ],
+  "author": "challabhaskarrao",
+  "license": "MIT"
+}
