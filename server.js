@@ -702,6 +702,19 @@ const server = http.createServer((req, res) => {
     });
   }
 
+  // 17. GET /api/sensors/health-check
+  if (method === 'GET' && pathname === '/api/sensors/health-check') {
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      esp32Online: state.esp32Online,
+      lastUpdated: state.lastUpdated,
+      rssi: state.rssi,
+      status: state.esp32Online ? 'HEALTHY' : 'OFFLINE'
+    });
+  }
+
+
 
 
   // 11. POST /api/auth/login (Demo Authentication)

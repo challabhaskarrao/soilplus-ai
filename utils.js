@@ -70,6 +70,18 @@ export function estimateIrrigationThreshold(cropType, soilType, currentMoisture)
     };
 }
 
+export function validateSensorHeartbeat(lastPingTimestamp, intervalSec = 30) {
+    if (!lastPingTimestamp) return { isHealthy: false, status: 'NO_PING_RECEIVED' };
+    const elapsedSec = (Date.now() - new Date(lastPingTimestamp).getTime()) / 1000;
+    const isHealthy = elapsedSec <= intervalSec * 2;
+    return {
+        isHealthy,
+        elapsedSec: +elapsedSec.toFixed(1),
+        status: isHealthy ? 'HEALTHY' : 'STALE_HEARTBEAT'
+    };
+}
+
+
 
 
 
