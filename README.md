@@ -79,8 +79,9 @@ Open your browser to:
 - `GET /api/diagnostics/frost-risk`: Evaluates atmospheric freeze risk based on ambient temperature and relative humidity.
 - `GET /api/diagnostics/organic-matter`: Calculates soil organic matter (SOM) percentage index and soil quality rating.
 - `GET /api/diagnostics/aeration`: Calculates soil bulk density, compaction index, and aeration porosity classification.
+- `GET /api/irrigation/threshold`: Evaluates crop water deficits and provides automated irrigation recommendations.
+- `GET /api/sensors/health-check`: Validates ESP32 telemetry connectivity and ping status.
 - `GET /health`: Healthcheck status endpoint.
-
 
 ### Sample Live Telemetry Response Schema (`GET /api/telemetry/live`)
 ```json
@@ -100,21 +101,16 @@ Open your browser to:
 
 ---
 
-## 📝 Release Notes & CHANGELOG (v1.3.0)
+## 📝 Release Notes & CHANGELOG (v1.4.0)
 
+- **Automated Irrigation Threshold Estimator**: Smart water deficit estimator tailored by soil texture (Sandy, Loam, Clay) and crop profile.
+- **Sensor Heartbeat & Health Check**: ESP32 connection validator checking ping freshness and signal strength.
+- **Soil Aeration & Density Diagnostics**: Bulk density and compaction index analysis for soil root zone aeration assessment.
 - **Water Usage Analytics**: Integrated cumulative water volume tracking, pump runtime calculations, and flow rate efficiency rating (`HIGH_EFFICIENCY`, `MODERATE`, `HEAVY_CONSUMPTION`).
 - **Soil Salinity & EC Index**: Added Electrical Conductivity (dS/m) calculation helper and salinity risk classifier (`NON_SALINE`, `SLIGHTLY_SALINE`, `MODERATELY_SALINE`, `HIGHLY_SALINE`).
 - **Telemetry Signal Quality**: Added Wi-Fi RSSI evaluation utilities (`EXCELLENT`, `GOOD`, `FAIR`, `POOR`).
 - **SSE Stream Enhancements**: Implemented heartbeat ping interval to maintain active server-sent event socket connections.
 - **Crop Moisture Evaluator**: Added crop profile threshold evaluation (`OPTIMAL`, `MILD DEFICIT`, `CRITICAL WILTING`, `WATERLOGGED`).
 - **Pump Safety Guard**: Reinforced emergency stop override with automated runtime counter reset.
-- **UI Enhancements**: Added custom status dot indicators and moisture level badge styling tokens.
-- **Environmental Diagnostics**: Added evaluation routines for ambient heat stress, soil temperature, and relative humidity fungal alerts.
-- **NPK Nutrient Analysis**: Integrated nitrogen, phosphorus, and potassium target balance rating helper functions.
+- **UI Enhancements**: Added custom status dot indicators, salinity badges, and irrigation status styling tokens.
 
-
-
-
-
-## Recent Updates
-- Input validation and health score calculation algorithms integrated.
