@@ -81,7 +81,30 @@ export function validateSensorHeartbeat(lastPingTimestamp, intervalSec = 30) {
     };
 }
 
+export function calculateNitrogenVolatilizationRisk(soilTemp, ph, moisture, applicationType = 'surface') {
+    let riskFactor = 0;
+    if (ph > 7.5) riskFactor += 35;
+    else if (ph > 7.0) riskFactor += 15;
 
+    if (soilTemp > 25) riskFactor += 30;
+    else if (soilTemp > 18) riskFactor += 15;
 
+    if (moisture < 30) riskFactor += 20;
+    if (applicationType === 'surface') riskFactor += 15;
 
+    riskFactor = Math.min(100, riskFactor);
+    let riskLevel = 'LOW';
+    if (riskFactor >= 70) riskLevel = 'CRITICAL';
+    else if (riskFactor >= 40) riskLevel = 'MODERATE';
+
+    return {
+        soilTemp,
+        ph,
+        moisture,
+        applicationType,
+        volatilizationRiskFactor: riskFactor,
+        riskLevel,
+        mitigation: riskFactor >= 40 ? 'Incorporate fertilizer immediately or apply light irrigation (5-10mm).' : 'Optimal retention conditions.'
+    };
+}
 
