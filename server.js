@@ -717,6 +717,25 @@ const server = http.createServer((req, res) => {
 
 
 
+
+  // 18. GET /api/analytics/nitrogen-volatilization
+  if (method === 'GET' && pathname === '/api/analytics/nitrogen-volatilization') {
+    const temp = state.temperature || 24.5;
+    const ph = state.soilPh || 6.8;
+    const moisture = state.soilMoisture || 52;
+    const riskFactor = (ph > 7.2 ? 30 : 10) + (temp > 25 ? 25 : 10) + (moisture < 35 ? 20 : 5);
+    const riskLevel = riskFactor >= 60 ? 'CRITICAL' : (riskFactor >= 35 ? 'MODERATE' : 'LOW');
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      temperature: temp,
+      soilPh: ph,
+      soilMoisture: moisture,
+      volatilizationRiskFactor: riskFactor,
+      riskLevel
+    });
+  }
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';
