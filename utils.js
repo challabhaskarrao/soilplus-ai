@@ -108,3 +108,30 @@ export function calculateNitrogenVolatilizationRisk(soilTemp, ph, moisture, appl
     };
 }
 
+export function calculateGrowingDegreeDays(tMax, tMin, baseTemp = 10) {
+    const avgTemp = (tMax + tMin) / 2;
+    return Math.max(0, +(avgTemp - baseTemp).toFixed(2));
+}
+
+export function estimateCropStage(cumulativeGDD, cropType = 'corn') {
+    const stages = {
+        corn: [
+            { stage: 'Emergence', minGDD: 0, maxGDD: 120 },
+            { stage: 'Vegetative V4-V8', minGDD: 121, maxGDD: 450 },
+            { stage: 'Tasseling / Silking', minGDD: 451, maxGDD: 900 },
+            { stage: 'Grain Filling', minGDD: 901, maxGDD: 1400 },
+            { stage: 'Physiological Maturity', minGDD: 1401, maxGDD: 9999 }
+        ],
+        wheat: [
+            { stage: 'Germination & Tillering', minGDD: 0, maxGDD: 300 },
+            { stage: 'Stem Elongation', minGDD: 301, maxGDD: 650 },
+            { stage: 'Booting & Heading', minGDD: 651, maxGDD: 950 },
+            { stage: 'Ripening', minGDD: 951, maxGDD: 9999 }
+        ]
+    };
+
+    const cropStages = stages[cropType.toLowerCase()] || stages.corn;
+    const current = cropStages.find(s => cumulativeGDD >= s.minGDD && cumulativeGDD <= s.maxGDD) || cropStages[cropStages.length - 1];
+    return { crop: cropType, cumulativeGDD, currentStage: current.stage };
+}
+
