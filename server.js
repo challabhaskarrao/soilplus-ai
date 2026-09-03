@@ -736,6 +736,21 @@ const server = http.createServer((req, res) => {
     });
   }
 
+
+  // 19. GET /api/diagnostics/growing-degree-days
+  if (method === 'GET' && pathname === '/api/diagnostics/growing-degree-days') {
+    const cumulativeGDD = state.cumulativeGDD || 720;
+    const dailyGDD = Math.max(0, ((state.temperature || 26) - 10));
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      crop: activeCrop.name,
+      dailyGDD: +dailyGDD.toFixed(1),
+      cumulativeGDD,
+      phenologicalStage: cumulativeGDD > 900 ? 'Grain Filling' : (cumulativeGDD > 450 ? 'Reproductive / Flowering' : 'Vegetative')
+    });
+  }
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';
