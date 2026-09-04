@@ -751,6 +751,22 @@ const server = http.createServer((req, res) => {
     });
   }
 
+
+  // 20. GET /api/diagnostics/evapotranspiration
+  if (method === 'GET' && pathname === '/api/diagnostics/evapotranspiration') {
+    const temp = state.temperature || 27;
+    const humidity = state.humidity || 55;
+    const et0 = +(0.0023 * (temp + 17.8) * 4.5 * ((100 - humidity) / 100 + 0.5)).toFixed(2);
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      temperature: temp,
+      humidity,
+      et0MmPerDay: Math.max(1.2, et0),
+      waterLossCategory: et0 > 5.0 ? 'High' : (et0 >= 3.0 ? 'Moderate' : 'Low')
+    });
+  }
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';

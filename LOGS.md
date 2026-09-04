@@ -10,3 +10,4 @@
 - Sep 01: Added automated irrigation threshold estimator, sensor heartbeat validator, and REST endpoints for v1.4.0 release.
 - Sep 02: Added nitrogen volatilization risk analytics module and REST endpoint.
 - Sep 03: Added Growing Degree Days (GDD) calculation utility, phenological stage predictor, and UI badges.
+- Sep 04: Added evapotranspiration (ET0) water loss calculation model and diagnostic endpoint.
