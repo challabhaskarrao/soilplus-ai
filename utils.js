@@ -150,3 +150,23 @@ export function estimateEvapotranspiration(temperature, humidity, solarRadiation
     };
 }
 
+export function detectSensorAnomalies(recentReadings = [], maxDeltaAllowed = 25) {
+    if (!Array.isArray(recentReadings) || recentReadings.length < 2) {
+        return { isAnomaly: false, reason: 'Insufficient data points' };
+    }
+
+    const latest = recentReadings[recentReadings.length - 1];
+    const previous = recentReadings[recentReadings.length - 2];
+    const delta = Math.abs(latest - previous);
+
+    if (latest < 0 || latest > 100) {
+        return { isAnomaly: true, reason: 'OUT_OF_BOUNDS', value: latest, delta };
+    }
+
+    if (delta > maxDeltaAllowed) {
+        return { isAnomaly: true, reason: 'SUDDEN_SPIKE_OR_DROP', value: latest, delta };
+    }
+
+    return { isAnomaly: false, reason: 'NORMAL_READING', value: latest, delta };
+}
+
