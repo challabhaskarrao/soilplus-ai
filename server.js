@@ -767,6 +767,21 @@ const server = http.createServer((req, res) => {
     });
   }
 
+
+  // 21. GET /api/sensors/anomaly-detection
+  if (method === 'GET' && pathname === '/api/sensors/anomaly-detection') {
+    const moisture = state.soilMoisture || 50;
+    const isAnomaly = moisture < 5 || moisture > 98;
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      currentMoisture: moisture,
+      isAnomaly,
+      anomalyType: isAnomaly ? 'UNREALISTIC_FLUCTUATION' : 'NONE',
+      probeIntegrityScore: isAnomaly ? 45 : 98
+    });
+  }
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';
