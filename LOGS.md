@@ -11,3 +11,4 @@
 - Sep 02: Added nitrogen volatilization risk analytics module and REST endpoint.
 - Sep 03: Added Growing Degree Days (GDD) calculation utility, phenological stage predictor, and UI badges.
 - Sep 04: Added evapotranspiration (ET0) water loss calculation model and diagnostic endpoint.
+- Sep 05: Added sensor anomaly & rapid fluctuation detection algorithm and UI warning styles.
