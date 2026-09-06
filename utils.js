@@ -170,3 +170,28 @@ export function detectSensorAnomalies(recentReadings = [], maxDeltaAllowed = 25)
     return { isAnomaly: false, reason: 'NORMAL_READING', value: latest, delta };
 }
 
+export function calculateCompostRatio(greenWeightKg, brownWeightKg, greenCN = 15, brownCN = 60) {
+    const totalWeight = greenWeightKg + brownWeightKg;
+    if (totalWeight <= 0) return { error: 'Weights must be greater than zero' };
+
+    const compositeCN = (greenWeightKg * greenCN + brownWeightKg * brownCN) / totalWeight;
+    let balanceStatus = 'Optimal';
+    let recommendation = 'Carbon-to-Nitrogen ratio is ideal for decomposition.';
+
+    if (compositeCN < 25) {
+        balanceStatus = 'Excess Nitrogen';
+        recommendation = 'Add dry leaves, sawdust, or straw (brown materials) to prevent ammonia odor.';
+    } else if (compositeCN > 35) {
+        balanceStatus = 'Excess Carbon';
+        recommendation = 'Add fresh greens, vegetable scraps, or manure to accelerate decomposition.';
+    }
+
+    return {
+        totalWeightKg: +totalWeight.toFixed(1),
+        compositeCNRatio: +compositeCN.toFixed(1),
+        idealRange: '25:1 - 30:1',
+        balanceStatus,
+        recommendation
+    };
+}
+
