@@ -12,3 +12,4 @@
 - Sep 03: Added Growing Degree Days (GDD) calculation utility, phenological stage predictor, and UI badges.
 - Sep 04: Added evapotranspiration (ET0) water loss calculation model and diagnostic endpoint.
 - Sep 05: Added sensor anomaly & rapid fluctuation detection algorithm and UI warning styles.
+- Sep 06: Added composting carbon-to-nitrogen (C:N) ratio calculator and fertilizer advisor endpoint.

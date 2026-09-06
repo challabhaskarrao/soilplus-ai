@@ -782,6 +782,21 @@ const server = http.createServer((req, res) => {
     });
   }
 
+
+  // 22. GET /api/fertilizer/compost-advisor
+  if (method === 'GET' && pathname === '/api/fertilizer/compost-advisor') {
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      recommendedBlend: {
+        greenMaterialsPercent: 40,
+        brownMaterialsPercent: 60,
+        targetCNRatio: '28:1',
+        estimatedDegradationWeeks: 8
+      }
+    });
+  }
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';
