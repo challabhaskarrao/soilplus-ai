@@ -195,3 +195,24 @@ export function calculateCompostRatio(greenWeightKg, brownWeightKg, greenCN = 15
     };
 }
 
+export function analyzeMoistureGradient(topsoilMoisture, subsoilMoisture, rootDepthCm = 30) {
+    const gradientDelta = topsoilMoisture - subsoilMoisture;
+    let infiltrationPattern = 'Equilibrium';
+
+    if (gradientDelta > 15) {
+        infiltrationPattern = 'Downward Infiltration (Recent Rain/Irrigation)';
+    } else if (gradientDelta < -15) {
+        infiltrationPattern = 'Capillary Rise / Surface Evaporation Deficit';
+    }
+
+    const meanRootZoneMoisture = +((topsoilMoisture * 0.4 + subsoilMoisture * 0.6).toFixed(1));
+    return {
+        topsoilMoisture,
+        subsoilMoisture,
+        gradientDelta: +gradientDelta.toFixed(1),
+        meanRootZoneMoisture,
+        rootDepthCm,
+        infiltrationPattern
+    };
+}
+
