@@ -13,3 +13,4 @@
 - Sep 04: Added evapotranspiration (ET0) water loss calculation model and diagnostic endpoint.
 - Sep 05: Added sensor anomaly & rapid fluctuation detection algorithm and UI warning styles.
 - Sep 06: Added composting carbon-to-nitrogen (C:N) ratio calculator and fertilizer advisor endpoint.
+- Sep 07: Added multi-depth soil moisture gradient analyzer and subsoil telemetry visualizer.

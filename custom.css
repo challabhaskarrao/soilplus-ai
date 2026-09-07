@@ -254,3 +254,14 @@
   font-weight: 600;
 }
 
+/* Moisture Gradient Meter */
+.gradient-bar {
+  display: flex;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.gradient-topsoil { background: #38bdf8; flex: 1; }
+.gradient-subsoil { background: #0284c7; flex: 1; }
+
