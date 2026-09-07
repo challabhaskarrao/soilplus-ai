@@ -797,6 +797,21 @@ const server = http.createServer((req, res) => {
     });
   }
 
+
+  // 23. GET /api/telemetry/gradient
+  if (method === 'GET' && pathname === '/api/telemetry/gradient') {
+    const top = state.soilMoisture || 52;
+    const sub = Math.min(85, Math.max(20, top + 6));
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      topsoilMoisture: top,
+      subsoilMoisture: sub,
+      gradientDelta: +(top - sub).toFixed(1),
+      rootZoneAverage: +((top * 0.4 + sub * 0.6).toFixed(1))
+    });
+  }
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';
