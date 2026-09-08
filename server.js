@@ -812,6 +812,21 @@ const server = http.createServer((req, res) => {
     });
   }
 
+
+  // 24. GET /api/pump/smart-schedule
+  if (method === 'GET' && pathname === '/api/pump/smart-schedule') {
+    const moisture = state.soilMoisture || 52;
+    const rainProb = state.rainProbability || 15;
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      pumpStatus: state.pumpStatus,
+      rainProbability: rainProb,
+      action: rainProb > 60 ? 'SUSPEND' : (moisture < 45 ? 'IRRIGATE' : 'STANDBY'),
+      recommendedDurationMin: moisture < 45 ? 25 : 0
+    });
+  }
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';
