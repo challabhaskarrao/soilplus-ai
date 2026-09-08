@@ -216,3 +216,33 @@ export function analyzeMoistureGradient(topsoilMoisture, subsoilMoisture, rootDe
     };
 }
 
+export function calculateSmartValveSchedule(crop, currentMoisture, rainProbability = 10, forecastRainMm = 0) {
+    const minMoisture = 45;
+    if (rainProbability > 60 && forecastRainMm >= 10) {
+        return {
+            action: 'SUSPEND',
+            durationMinutes: 0,
+            reason: `High rain probability (${rainProbability}%, ${forecastRainMm}mm predicted). Conserving water.`,
+            scheduleTime: 'Postponed'
+        };
+    }
+
+    if (currentMoisture < minMoisture) {
+        const deficit = minMoisture - currentMoisture;
+        const minutesNeeded = Math.min(60, Math.round(deficit * 1.5));
+        return {
+            action: 'IRRIGATE',
+            durationMinutes: minutesNeeded,
+            reason: `Moisture is below threshold (${currentMoisture}% vs ${minMoisture}%).`,
+            scheduleTime: 'Immediate / Next Cycle'
+        };
+    }
+
+    return {
+        action: 'STANDBY',
+        durationMinutes: 0,
+        reason: 'Soil moisture is optimal.',
+        scheduleTime: 'Next evaluation in 4 hours'
+    };
+}
+
