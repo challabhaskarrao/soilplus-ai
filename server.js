@@ -827,6 +827,22 @@ const server = http.createServer((req, res) => {
     });
   }
 
+
+  // 25. GET /api/analytics/carbon-sequestration
+  if (method === 'GET' && pathname === '/api/analytics/carbon-sequestration') {
+    const som = state.soilOrganicMatter || 3.2;
+    const soc = +(som * 0.58).toFixed(2);
+    const annualSeq = +(0.35 * 1.25 * (som / 2.5)).toFixed(2);
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      soilOrganicMatterPercent: som,
+      soilOrganicCarbonPercent: soc,
+      annualSequestrationTonsPerAcre: annualSeq,
+      estimatedCarbonCreditRateUSD: 35.0
+    });
+  }
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';
