@@ -246,3 +246,26 @@ export function calculateSmartValveSchedule(crop, currentMoisture, rainProbabili
     };
 }
 
+export function estimateCarbonSequestration(somPercentage, tillagePractice = 'no-till', acreage = 1.0) {
+    const socPercentage = somPercentage * 0.58;
+    const tillageMultipliers = {
+        'no-till': 1.25,
+        'reduced-till': 1.0,
+        'conventional': 0.75
+    };
+
+    const multiplier = tillageMultipliers[tillagePractice.toLowerCase()] || 1.0;
+    const annualSequestrationTonsPerAcre = +(0.35 * multiplier * (somPercentage / 2.5)).toFixed(2);
+    const totalAcreageSequestrationTons = +(annualSequestrationTonsPerAcre * acreage).toFixed(2);
+
+    return {
+        somPercentage,
+        socPercentage: +socPercentage.toFixed(2),
+        tillagePractice,
+        acreage,
+        annualSequestrationTonsPerAcre,
+        totalAcreageSequestrationTons,
+        carbonCreditPotentialUsd: +(totalAcreageSequestrationTons * 35).toFixed(2)
+    };
+}
+
