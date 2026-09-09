@@ -15,3 +15,4 @@
 - Sep 06: Added composting carbon-to-nitrogen (C:N) ratio calculator and fertilizer advisor endpoint.
 - Sep 07: Added multi-depth soil moisture gradient analyzer and subsoil telemetry visualizer.
 - Sep 08: Implemented smart valve scheduler with rainfall prediction integration and weather overrides.
+- Sep 09: Released SoilPlus AI v1.5.0 with Soil Organic Carbon (SOC) sequestration, expanded 10-test test suite, and carbon market valuations.
