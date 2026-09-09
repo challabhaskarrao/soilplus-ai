@@ -1,12 +1,12 @@
 {
   "name": "soilplus-ai",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Smart Soil Moisture & Autonomous Irrigation Backend Server and AI Agronomist Analytics",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "test": "node tests/salinity.test.js && node tests/irrigation.test.js"
+    "test": "node tests/salinity.test.js && node tests/irrigation.test.js && node tests/nitrogen.test.js && node tests/gdd.test.js && node tests/et0.test.js && node tests/anomaly.test.js && node tests/compost.test.js && node tests/gradient.test.js && node tests/schedule.test.js && node tests/carbon.test.js"
   },
   "keywords": [
     "soil-moisture",
