@@ -139,14 +139,14 @@ export function estimateEvapotranspiration(temperature, humidity, solarRadiation
     const meanTemp = temperature;
     const radiationEquivalent = 0.408 * solarRadiationMJ;
     const vaporDeficit = (100 - humidity) / 100;
-    const et0 = Math.max(0.5, (0.0023 * (meanTemp + 17.8) * Math.sqrt(Math.max(1, 35 - meanTemp)) * radiationEquivalent * (1 + 0.05 * windSpeedMs) * (0.8 + 0.4 * vaporDeficit)) / 10);
+    const et0 = Math.max(0.5, +(0.0035 * (meanTemp + 17.8) * Math.sqrt(Math.max(5, 35 - meanTemp)) * radiationEquivalent * (1 + 0.05 * windSpeedMs) * (0.8 + 0.4 * vaporDeficit)).toFixed(2));
     return {
         temperature,
         humidity,
         solarRadiationMJ,
         windSpeedMs,
-        et0MmPerDay: +et0.toFixed(2),
-        waterLossCategory: et0 > 6.0 ? 'High' : (et0 >= 3.5 ? 'Moderate' : 'Low')
+        et0MmPerDay: et0,
+        waterLossCategory: et0 > 4.0 ? 'High' : (et0 >= 2.5 ? 'Moderate' : 'Low')
     };
 }
 
