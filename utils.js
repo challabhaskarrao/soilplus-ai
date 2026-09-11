@@ -269,3 +269,27 @@ export function estimateCarbonSequestration(somPercentage, tillagePractice = 'no
     };
 }
 
+export function calculatePhosphorusFixationRisk(ph, clayPercentage, aluminumIronPpm = 25) {
+    let riskScore = 0;
+    if (ph < 5.5) riskScore += 50; // Severe fixation by Al and Fe
+    else if (ph < 6.2) riskScore += 25;
+    else if (ph > 7.8) riskScore += 40; // Fixation by calcium
+
+    if (clayPercentage > 40) riskScore += 25;
+    else if (clayPercentage > 25) riskScore += 15;
+
+    if (aluminumIronPpm > 40) riskScore += 25;
+
+    riskScore = Math.min(100, riskScore);
+    return {
+        ph,
+        clayPercentage,
+        aluminumIronPpm,
+        fixationRiskScore: riskScore,
+        fixationCategory: riskScore >= 70 ? 'HIGH_FIXATION' : (riskScore >= 35 ? 'MODERATE_FIXATION' : 'LOW_FIXATION'),
+        recommendation: ph < 6.0 
+            ? 'Apply agricultural lime to raise pH to 6.5 and reduce aluminum solubility.' 
+            : 'Maintain standard banding application of phosphorus.'
+    };
+}
+
