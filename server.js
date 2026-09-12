@@ -843,6 +843,20 @@ const server = http.createServer((req, res) => {
     });
   }
 
+
+  // 26. GET /api/analytics/phosphorus-fixation
+  if (method === 'GET' && pathname === '/api/analytics/phosphorus-fixation') {
+    const ph = state.soilPh || 6.8;
+    const isAcidic = ph < 6.0;
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      soilPh: ph,
+      fixationRisk: isAcidic ? 'HIGH' : 'LOW_TO_MODERATE',
+      soilAmendment: isAcidic ? 'Agricultural Dolomite Lime' : 'None Required'
+    });
+  }
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';
