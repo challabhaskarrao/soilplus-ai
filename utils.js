@@ -293,3 +293,16 @@ export function calculatePhosphorusFixationRisk(ph, clayPercentage, aluminumIron
     };
 }
 
+export function calculateLeachingFraction(ecWater, ecTargetDrainage) {
+    if (ecTargetDrainage <= 0 || ecWater <= 0) return { error: 'EC values must be positive' };
+    const leachingFraction = +(ecWater / (5 * ecTargetDrainage - ecWater)).toFixed(3);
+    const percentage = +(leachingFraction * 100).toFixed(1);
+    return {
+        irrigationWaterEC: ecWater,
+        targetDrainageEC: ecTargetDrainage,
+        leachingFraction,
+        leachingRequirementPercentage: Math.max(0, percentage),
+        status: percentage > 25 ? 'HIGH_LEACHING_NEEDED' : 'STANDARD_DRAINAGE'
+    };
+}
+
