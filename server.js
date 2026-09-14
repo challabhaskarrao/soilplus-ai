@@ -857,6 +857,21 @@ const server = http.createServer((req, res) => {
     });
   }
 
+
+  // 27. GET /api/irrigation/leaching-fraction
+  if (method === 'GET' && pathname === '/api/irrigation/leaching-fraction') {
+    const ecWater = state.waterEc || 1.1;
+    const ecTarget = 4.0;
+    const lf = +(ecWater / (5 * ecTarget - ecWater)).toFixed(3);
+    return sendJSON(200, {
+      success: true,
+      timestamp: new Date().toISOString(),
+      irrigationWaterEC: ecWater,
+      leachingFraction: lf,
+      leachingPercent: +(lf * 100).toFixed(1)
+    });
+  }
+
   // 11. POST /api/auth/login (Demo Authentication)
   if (method === 'POST' && pathname === '/api/auth/login') {
     let body = '';
