@@ -18,3 +18,4 @@
 - Sep 09: Released SoilPlus AI v1.5.0 with Soil Organic Carbon (SOC) sequestration, expanded 10-test test suite, and carbon market valuations.
 - Sep 12: Added phosphorus fixation risk diagnostics for acidic & alkaline soils and REST endpoint.
 - Sep 14: Added leaching fraction estimator for soil salinity management and REST endpoint.
+- Sep 15: Added Crop Water Stress Index (CWSI) module, comprehensive 13-test automation suite, and v1.5.1 release.
