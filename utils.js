@@ -306,3 +306,24 @@ export function calculateLeachingFraction(ecWater, ecTargetDrainage) {
     };
 }
 
+export function calculateCropWaterStressIndex(canopyTemp, airTemp, vaporPressureDeficitKPa) {
+    // Empirical baseline lower and upper bounds
+    const lowerBaseline = airTemp - 1.5 - (1.2 * vaporPressureDeficitKPa);
+    const upperBaseline = airTemp + 4.5;
+
+    const cwsi = Math.max(0, Math.min(1.0, +((canopyTemp - lowerBaseline) / (upperBaseline - lowerBaseline)).toFixed(2)));
+    let stressCategory = 'NONE';
+    if (cwsi >= 0.70) stressCategory = 'CRITICAL_STRESS';
+    else if (cwsi >= 0.40) stressCategory = 'MODERATE_STRESS';
+    else if (cwsi >= 0.20) stressCategory = 'MILD_STRESS';
+
+    return {
+        canopyTemp,
+        airTemp,
+        vaporPressureDeficitKPa,
+        cwsi,
+        stressCategory,
+        requiresIrrigation: cwsi >= 0.45
+    };
+}
+
